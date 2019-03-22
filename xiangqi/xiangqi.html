@@ -1,0 +1,903 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>中国象棋</title>
+</head>
+<body>
+<style>
+	#all {
+		position:relative;
+		width:580px;
+		height:680px;
+		border:solid 2px #000000;
+		margin:0px auto;
+		font-size:medium;
+	}
+	#message {
+		border:dotted 1px blue;
+		position:absolute;
+		width:200px;
+		height:180px;
+		top:250px;
+		left:590px;
+		color:blue;
+		background-color:black;
+	}
+	table {
+		margin:20px auto;
+		border-collapse: collapse;
+	}
+	#pan {
+		position:absolute;
+		top:30px;
+		left:30px;
+	}
+	#qi {
+		position:absolute;
+		top:0px;
+		left:0px;
+		z-index:100;
+	}
+	#qi .qta , #pan .pta {
+		width:60px;
+		height:60px;
+		cellspacing=0px;
+		background-repeat:no-repeat;
+	}
+	#p52,#p53,#p56,#p57 {
+		font-size:40px;
+		color:blue;
+		text-align:center;
+		z-index:90;
+	}
+	
+/*	#qi .qta {
+	border:solid 2px #000000;
+	}
+*/	
+	
+	#p11,#p12,#p13,#p14,#p15,#p16,#p17,#p18,#p19,#p21,#p22,#p23,#p24,#p25,#p26,#p27,#p28,
+	#p31,#p32,#p33,#p34,#p35,#p36,#p37,#p38,#p39,#p41,#p42,#p43,#p44,#p45,#p46,#p47,#p48,
+	#p61,#p62,#p63,#p64,#p65,#p66,#p67,#p68,#p69,#p71,#p72,#p73,#p74,#p75,#p76,#p77,#p78,
+	#p81,#p82,#p83,#p84,#p85,#p86,#p87,#p88,#p89,#p91,#p92,#p93,#p94,#p95,#p96,#p97,#p98 {
+		border:solid 2px #000000;
+	}
+	#p51 {
+		border-left:solid 2px #000000;
+	}
+	#p58 {
+		border-right:solid 2px #000000;
+	}
+	li {
+		list-style-type:none;
+	}
+	button {
+		color:white;
+		background-color:red;
+		width:100px;
+		height:30px;
+	}
+
+</style>
+<div id="all">
+<!--画棋子表格-->
+<table id="qi">
+	<tr id="q1">
+		<td id="q11" class="qta"></td>
+		<td id="q12" class="qta"></td>
+		<td id="q13" class="qta"></td>
+		<td id="q14" class="qta"></td>
+		<td id="q15" class="qta"></td>
+		<td id="q16" class="qta"></td>
+		<td id="q17" class="qta"></td>
+		<td id="q18" class="qta"></td>
+		<td id="q19" class="qta"></td>
+	</tr>
+	
+	<tr id="q2">
+		<td id="q21" class="qta"></td>
+		<td id="q22" class="qta"></td>
+		<td id="q23" class="qta"></td>
+		<td id="q24" class="qta"></td>
+		<td id="q25" class="qta"></td>
+		<td id="q26" class="qta"></td>
+		<td id="q27" class="qta"></td>
+		<td id="q28" class="qta"></td>
+		<td id="q29" class="qta"></td>
+	</tr>
+	
+	<tr  id="q3">
+		<td id="q31" class="qta"></td>
+		<td id="q32" class="qta"></td>
+		<td id="q33" class="qta"></td>
+		<td id="q34" class="qta"></td>
+		<td id="q35" class="qta"></td>
+		<td id="q36" class="qta"></td>
+		<td id="q37" class="qta"></td>
+		<td id="q38" class="qta"></td>
+		<td id="q39" class="qta"></td>
+	</tr>
+	
+	<tr id="q4">
+		<td id="q41" class="qta"></td>
+		<td id="q42" class="qta"></td>
+		<td id="q43" class="qta"></td>
+		<td id="q44" class="qta"></td>
+		<td id="q45" class="qta"></td>
+		<td id="q46" class="qta"></td>
+		<td id="q47" class="qta"></td>
+		<td id="q48" class="qta"></td>
+		<td id="q49" class="qta"></td>
+	</tr>
+	
+	<tr id="q5">
+		<td id="q51" class="qta"></td>
+		<td id="q52" class="qta"></td>
+		<td id="q53" class="qta"></td>
+		<td id="q54" class="qta"></td>
+		<td id="q55" class="qta"></td>
+		<td id="q56" class="qta"></td>
+		<td id="q57" class="qta"></td>
+		<td id="q58" class="qta"></td>
+		<td id="q59" class="qta"></td>
+	</tr>
+	
+	<tr id="q6">
+		<td id="q61" class="qta"></td>
+		<td id="q62" class="qta"></td>
+		<td id="q63" class="qta"></td>
+		<td id="q64" class="qta"></td>
+		<td id="q65" class="qta"></td>
+		<td id="q66" class="qta"></td>
+		<td id="q67" class="qta"></td>
+		<td id="q68" class="qta"></td>
+		<td id="q69" class="qta"></td>
+	</tr>
+	
+	<tr id="q7">
+		<td id="q71" class="qta"></td>
+		<td id="q72" class="qta"></td>
+		<td id="q73" class="qta"></td>
+		<td id="q74" class="qta"></td>
+		<td id="q75" class="qta"></td>
+		<td id="q76" class="qta"></td>
+		<td id="q77" class="qta"></td>
+		<td id="q78" class="qta"></td>
+		<td id="q79" class="qta"></td>
+	</tr>
+	
+	<tr id="q8">
+		<td id="q81" class="qta"></td>
+		<td id="q82" class="qta"></td>
+		<td id="q83" class="qta"></td>
+		<td id="q84" class="qta"></td>
+		<td id="q85" class="qta"></td>
+		<td id="q86" class="qta"></td>
+		<td id="q87" class="qta"></td>
+		<td id="q88" class="qta"></td>
+		<td id="q89" class="qta"></td>
+	</tr>
+	
+	<tr id="q9">
+		<td id="q91" class="qta"></td>
+		<td id="q92" class="qta"></td>
+		<td id="q93" class="qta"></td>
+		<td id="q94" class="qta"></td>
+		<td id="q95" class="qta"></td>
+		<td id="q96" class="qta"></td>
+		<td id="q97" class="qta"></td>
+		<td id="q98" class="qta"></td>
+		<td id="q99" class="qta"></td>
+	</tr>
+	
+	<tr id="q10">
+		<td id="q101" class="qta"></td>
+		<td id="q102" class="qta"></td>
+		<td id="q103" class="qta"></td>
+		<td id="q104" class="qta"></td>
+		<td id="q105" class="qta"></td>
+		<td id="q106" class="qta"></td>
+		<td id="q107" class="qta"></td>
+		<td id="q108" class="qta"></td>
+		<td id="q109" class="qta"></td>
+	</tr>
+</table>
+<!--画棋盘表格-->
+<table id="pan">
+	<tr id="p1">
+		<td id="p11" class="pta"></td>
+		<td id="p12" class="pta"></td>
+		<td id="p13" class="pta"></td>
+		<td id="p14" class="pta"></td>
+		<td id="p15" class="pta"></td>
+		<td id="p16" class="pta"></td>
+		<td id="p17" class="pta"></td>
+		<td id="p18" class="pta"></td>
+	</tr>
+	
+	<tr id="p2">
+		<td id="p21" class="pta"></td>
+		<td id="p22" class="pta"></td>
+		<td id="p23" class="pta"></td>
+		<td id="p24" class="pta"></td>
+		<td id="p25" class="pta"></td>
+		<td id="p26" class="pta"></td>
+		<td id="p27" class="pta"></td>
+		<td id="p28" class="pta"></td>
+	</tr>
+	
+	<tr  id="p3">
+		<td id="p31" class="pta"></td>
+		<td id="p32" class="pta"></td>
+		<td id="p33" class="pta"></td>
+		<td id="p34" class="pta"></td>
+		<td id="p35" class="pta"></td>
+		<td id="p36" class="pta"></td>
+		<td id="p37" class="pta"></td>
+		<td id="p38" class="pta"></td>
+	</tr>
+	
+	<tr id="p4">
+		<td id="p41" class="pta"></td>
+		<td id="p42" class="pta"></td>
+		<td id="p43" class="pta"></td>
+		<td id="p44" class="pta"></td>
+		<td id="p45" class="pta"></td>
+		<td id="p46" class="pta"></td>
+		<td id="p47" class="pta"></td>
+		<td id="p48" class="pta"></td>
+	</tr>
+	
+	<tr id="p5">
+		<td id="p51" class="pta"></td>
+		<td id="p52" class="pta">楚</td>
+		<td id="p53" class="pta">河</td>
+		<td id="p54" class="pta"></td>
+		<td id="p55" class="pta"></td>
+		<td id="p56" class="pta">汉</td>
+		<td id="p57" class="pta">界</td>
+		<td id="p58" class="pta"></td>
+	</tr>
+	
+	<tr id="p6">
+		<td id="p61" class="pta"></td>
+		<td id="p62" class="pta"></td>
+		<td id="p63" class="pta"></td>
+		<td id="p64" class="pta"></td>
+		<td id="p65" class="pta"></td>
+		<td id="p66" class="pta"></td>
+		<td id="p67" class="pta"></td>
+		<td id="p68" class="pta"></td>
+	</tr>
+	
+	<tr id="p7">
+		<td id="p71" class="pta"></td>
+		<td id="p72" class="pta"></td>
+		<td id="p73" class="pta"></td>
+		<td id="p74" class="pta"></td>
+		<td id="p75" class="pta"></td>
+		<td id="p76" class="pta"></td>
+		<td id="p77" class="pta"></td>
+		<td id="p78" class="pta"></td>
+	</tr>
+	
+	<tr id="p8">
+		<td id="p81" class="pta"></td>
+		<td id="p82" class="pta"></td>
+		<td id="p83" class="pta"></td>
+		<td id="p84" class="pta"></td>
+		<td id="p85" class="pta"></td>
+		<td id="p86" class="pta"></td>
+		<td id="p87" class="pta"></td>
+		<td id="p88" class="pta"></td>
+	</tr>
+	
+	<tr id="p9">
+		<td id="p91" class="pta"></td>
+		<td id="p92" class="pta"></td>
+		<td id="p93" class="pta"></td>
+		<td id="p94" class="pta"></td>
+		<td id="p95" class="pta"></td>
+		<td id="p96" class="pta"></td>
+		<td id="p97" class="pta"></td>
+		<td id="p98" class="pta"></td>
+	</tr>
+</table>
+<div id="message">
+	<ul>
+		<li id="step"> 步数:0 </li>
+		<li id="redlf"> 红子剩余：16</li>
+		<li id="blacklf"> 黑子剩余：16</li>
+		<li id="turnTo"> 轮到红方下棋 </li>
+		<li>  <button  onclick="init()"> 重新开始 </button></li>
+		<li id="winnerTime"> </li>
+	</ul>
+</div>
+</div>
+<script>
+	function init() {
+	counter=0;
+	redNumber=16;
+	blackNumber=16;
+	document.getElementById("blacklf").innerHTML="黑子剩余："+ blackNumber;
+	document.getElementById("redlf").innerHTML="红子剩余："+ redNumber; 
+	document.getElementById("step").innerHTML="步数："+ counter; 
+	document.getElementById("turnTo").innerHTML="轮到红方下棋"; 
+//初始化红方棋子位置
+	redPlayer={
+		playerId:"hong",
+		bing1:30,
+		bing2:32,
+		bing3:34,
+		bing4:36,
+		bing5:38,
+		pao1:21,
+		pao2:27,
+		ju1:00,
+		ju2:08,
+		ma1:01,
+		ma2:07,
+		xiang1:02,
+		xiang2:06,
+		shi1:03,
+		shi2:05,
+		jiang:04
+	};
+//初始化黑方棋子位置
+	blackPlayer={
+		playerId:"hei",
+		bing1:60,
+		bing2:62,
+		bing3:64,
+		bing4:66,
+		bing5:68,
+		pao1:71,
+		pao2:77,
+		ju1:90,
+		ju2:98,
+		ma1:91,
+		ma2:97,
+		xiang1:92,
+		xiang2:96,
+		shi1:93,
+		shi2:95,
+		jiang:94
+	};
+//获取棋子对象
+	for(i=0;i<=9;i++) {
+		for(j=0;j<=8;j++) {
+			p[10*i+j]=document.getElementById("q"+(i+1)+(j+1));
+			p[10*i+j].onclick=putdown;
+			p[10*i+j].style.backgroundImage = "none";
+		}}
+//初始化加载红方棋子图片
+	p[redPlayer.shi1].style.backgroundImage = "url("+redShi.url+")";
+	p[redPlayer.shi2].style.backgroundImage = "url("+redShi.url+")";
+	p[redPlayer.xiang1].style.backgroundImage = "url("+redXiang.url+")";
+	p[redPlayer.xiang2].style.backgroundImage = "url("+redXiang.url+")";
+	p[redPlayer.jiang].style.backgroundImage = "url("+redJiang.url+")";
+	p[redPlayer.ma1].style.backgroundImage = "url("+redMa.url+")";
+	p[redPlayer.ma2].style.backgroundImage = "url("+redMa.url+")";
+	p[redPlayer.ju1].style.backgroundImage = "url("+redJu.url+")";
+	p[redPlayer.ju2].style.backgroundImage = "url("+redJu.url+")";
+	p[redPlayer.pao1].style.backgroundImage = "url("+redPao.url+")";
+	p[redPlayer.pao2].style.backgroundImage = "url("+redPao.url+")";
+	p[redPlayer.bing1].style.backgroundImage = "url("+redBing.url+")";
+	p[redPlayer.bing2].style.backgroundImage = "url("+redBing.url+")";
+	p[redPlayer.bing3].style.backgroundImage = "url("+redBing.url+")";
+	p[redPlayer.bing4].style.backgroundImage = "url("+redBing.url+")";
+	p[redPlayer.bing5].style.backgroundImage = "url("+redBing.url+")";
+//初始化加载黑方棋子图片
+	p[blackPlayer.shi1].style.backgroundImage = "url("+blackShi.url+")";
+	p[blackPlayer.shi2].style.backgroundImage = "url("+blackShi.url+")";
+	p[blackPlayer.xiang1].style.backgroundImage = "url("+blackXiang.url+")";
+	p[blackPlayer.xiang2].style.backgroundImage = "url("+blackXiang.url+")";
+	p[blackPlayer.jiang].style.backgroundImage = "url("+blackJiang.url+")";
+	p[blackPlayer.ma1].style.backgroundImage = "url("+blackMa.url+")";
+	p[blackPlayer.ma2].style.backgroundImage = "url("+blackMa.url+")";
+	p[blackPlayer.ju1].style.backgroundImage = "url("+blackJu.url+")";
+	p[blackPlayer.ju2].style.backgroundImage = "url("+blackJu.url+")";
+	p[blackPlayer.pao1].style.backgroundImage = "url("+blackPao.url+")";
+	p[blackPlayer.pao2].style.backgroundImage = "url("+blackPao.url+")";
+	p[blackPlayer.bing1].style.backgroundImage = "url("+blackBing.url+")";
+	p[blackPlayer.bing2].style.backgroundImage = "url("+blackBing.url+")";
+	p[blackPlayer.bing3].style.backgroundImage = "url("+blackBing.url+")";
+	p[blackPlayer.bing4].style.backgroundImage = "url("+blackBing.url+")";
+	p[blackPlayer.bing5].style.backgroundImage = "url("+blackBing.url+")";
+	}
+	
+	var doit={
+//第二次点击棋盘时，且当界面需要改变时调用的方法，
+			change : function(whichOne) {
+//未吃对方棋子，但是移动了棋子
+			if(nextQiZiId!=qiziId && nextQiZi=="nothing") {
+				p[nextQiZiId].style.backgroundImage = "url("+whichOne+")";
+				p[qiziId].style.backgroundImage = "none";
+				eval(qizi+'='+nextQiZiId+';');
+				counter++;
+			}
+//试图吃自己的棋子
+			else if (nextQiZiId!=qiziId && ((nextQiZi.match("red")=="red" && qizi.match("red")=="red") || (nextQiZi.match("black")=="black" && qizi.match("black")=="black") ) ) {
+				alert("你不能吃自己的子");
+			}
+//吃了对方的棋子
+			else if (nextQiZiId!=qiziId && ((nextQiZi.match("red")=="red" && qizi.match("black")=="black") || (nextQiZi.match("black")=="black" && qizi.match("red")=="red") ) ){
+				p[nextQiZiId].style.backgroundImage = "url("+whichOne+")";
+				p[qiziId].style.backgroundImage = "none";
+				eval(qizi+'='+nextQiZiId+';');
+				eval(nextQiZi+'=undefined');
+				counter++;
+				if (nextQiZi.match("red")=="red") 
+				{ document.getElementById("redlf").innerHTML="红子剩余："+ --redNumber; }
+				else 
+				{ document.getElementById("blacklf").innerHTML="黑子剩余："+ --blackNumber; }
+				if(nextQiZi.match("redPlayer.jiang")=="redPlayer.jiang") {
+					document.getElementById("winnerTime").innerHTML="上局黑方取得胜利！"; 
+					alert("游戏结束!黑方胜利！");
+					init();
+				}
+				else if(nextQiZi.match("blackPlayer.jiang")=="blackPlayer.jiang") {
+					document.getElementById("winnerTime").innerHTML="上局红方取得胜利！"; 
+					alert("游戏结束!红方胜利！");
+					init();
+				}
+			}
+			if (counter%2==0) {
+				document.getElementById("turnTo").innerHTML="轮到红方下棋";
+			}
+			else {
+				document.getElementById("turnTo").innerHTML="轮到黑方下棋";
+			}
+			document.getElementById("step").innerHTML="步数："+counter;
+			},
+//判断点击的是哪个棋子
+			judge: function(judgeIdd) {
+				judgeId=judgeIdd.replace(/[^0-9]/ig,"")-11;
+				switch(judgeId) {
+				case redPlayer.bing1 : return "redPlayer.bing1";
+				case redPlayer.bing2 : return "redPlayer.bing2";
+				case redPlayer.bing3 : return "redPlayer.bing3";
+				case redPlayer.bing4 : return "redPlayer.bing4";
+				case redPlayer.bing5 : return "redPlayer.bing5";
+				case redPlayer.pao1 : return "redPlayer.pao1";
+				case redPlayer.pao2 : return "redPlayer.pao2";
+				case redPlayer.ju1 : return "redPlayer.ju1";
+				case redPlayer.ju2 : return "redPlayer.ju2";
+				case redPlayer.ma1 : return "redPlayer.ma1";
+				case redPlayer.ma2 : return "redPlayer.ma2";
+				case redPlayer.xiang1 : return "redPlayer.xiang1";
+				case redPlayer.xiang2 : return "redPlayer.xiang2";
+				case redPlayer.shi1 : return "redPlayer.shi1";
+				case redPlayer.shi2 : return "redPlayer.shi2";
+				case redPlayer.jiang : return "redPlayer.jiang";
+				case blackPlayer.bing1 : return "blackPlayer.bing1";
+				case blackPlayer.bing2 : return "blackPlayer.bing2";
+				case blackPlayer.bing3 : return "blackPlayer.bing3";
+				case blackPlayer.bing4 : return "blackPlayer.bing4";
+				case blackPlayer.bing5 : return "blackPlayer.bing5";
+				case blackPlayer.pao1 : return "blackPlayer.pao1";
+				case blackPlayer.pao2 : return "blackPlayer.pao2";
+				case blackPlayer.ju1 : return "blackPlayer.ju1";
+				case blackPlayer.ju2 : return "blackPlayer.ju2";
+				case blackPlayer.ma1 : return "blackPlayer.ma1";
+				case blackPlayer.ma2 : return "blackPlayer.ma2";
+				case blackPlayer.xiang1 : return "blackPlayer.xiang1";
+				case blackPlayer.xiang2 : return "blackPlayer.xiang2";
+				case blackPlayer.shi1 : return "blackPlayer.shi1";
+				case blackPlayer.shi2 : return "blackPlayer.shi2";
+				case blackPlayer.jiang : return "blackPlayer.jiang";
+				default : return "nothing";
+				};
+			}
+		};
+	
+//运行时的重要函数，实现棋子的移动与吃子等操作
+	function putdown()
+	{
+//第一次点击调用的方法
+		if(firstClick==true) {
+		qizi=doit.judge(this.id);
+		qiziId=this.id;
+		qiziId=qiziId.replace(/[^0-9]/ig,"")-11;
+		console.log("第一步"+qizi);
+		if (qizi!="nothing") {
+			if(counter%2===0 && qizi.match("red")=="red") {
+			p[qiziId].style.border="solid 1px red";
+			firstClick = false;
+			}
+			else if(counter%2===1 && qizi.match("black")=="black"){
+				p[qiziId].style.border="solid 1px black";
+				firstClick = false;
+			}
+		}
+		}
+		
+//第二次点击调用的方法，再次点击原先的棋子取消走棋，将firstClick置true	
+		else {
+			nextQiZi=doit.judge(this.id);
+			nextQiZiId=this.id;
+			nextQiZiId=nextQiZiId.replace(/[^0-9]/ig,"")-11;
+			console.log("第二步"+nextQiZi);
+//这里也许可以用正则表达简化，但目前对正则表达不熟悉
+//红旗
+			if(qizi.match("red")=="red"){
+			if (qizi.match("shi")=="shi" && redShi.run(qiziId,nextQiZiId) ) {
+				doit.change(redShi.url);
+			}
+			else if(qizi.match("xiang")=="xiang" && redXiang.run(qiziId,nextQiZiId) ) {
+				doit.change(redXiang.url);
+			}
+			else if (qizi.match("bing")=="bing" && redBing.run(qiziId,nextQiZiId) ) {
+				doit.change(redBing.url);
+			}
+			else if (qizi.match("jiang")=="jiang" && redJiang.run(qiziId,nextQiZiId) )
+			{
+				doit.change(redJiang.url);
+			}
+			else if (qizi.match("ju")=="ju" && redJu.run(qiziId,nextQiZiId) )
+			{
+				doit.change(redJu.url);
+			}
+			else if (qizi.match("ma")=="ma" && redMa.run(qiziId,nextQiZiId) )
+			{
+				doit.change(redMa.url);
+			}
+			else if (qizi.match("pao")=="pao" && redPao.run(qiziId,nextQiZiId) )
+			{
+				doit.change(redPao.url);
+			}
+			else {
+				if(qiziId!=nextQiZiId)
+					alert("棋子走法不符合规定！");
+			}
+			firstClick=true;
+			p[qiziId].style.border="none";
+			}
+//黑棋
+			else {
+			if (qizi.match("shi")=="shi" && blackShi.run(qiziId,nextQiZiId) ) {
+				doit.change(blackShi.url);
+			}
+			else if(qizi.match("xiang")=="xiang" && blackXiang.run(qiziId,nextQiZiId) ) {
+				doit.change(blackXiang.url);
+			}
+			else if (qizi.match("bing")=="bing" && blackBing.run(qiziId,nextQiZiId) ) {
+				doit.change(blackBing.url);
+			}
+			else if (qizi.match("jiang")=="jiang" && blackJiang.run(qiziId,nextQiZiId) )
+			{
+				doit.change(blackJiang.url);
+			}
+			else if (qizi.match("ju")=="ju" && blackJu.run(qiziId,nextQiZiId) )
+			{
+				doit.change(blackJu.url);
+			}
+			else if (qizi.match("ma")=="ma" && blackMa.run(qiziId,nextQiZiId) )
+			{
+				doit.change(blackMa.url);
+			}
+			else if (qizi.match("pao")=="pao" && blackPao.run(qiziId,nextQiZiId) )
+			{
+				doit.change(blackPao.url);
+			}
+			else {
+				if(qiziId!=nextQiZiId)
+					alert("棋子走法不符合规定！");
+			}}
+			firstClick=true;
+			p[qiziId].style.border="none";
+		}
+	}
+//定义棋手
+	var redPlayer;
+	var blackPlayer;
+	var firstClick=true;
+	var p=new Array();
+//定义红方棋子图片与行走方式，也许能用原型解决
+	var redShi={
+		url:"imgs/redshi.png",
+		run:function(qiziId,nextQiZiId) {
+			switch (nextQiZiId) {
+			case qiziId : return false; break;
+			case 03 : if(qiziId===14) {return true;} else {return false;} break;
+			case 05 : if(qiziId===14) {return true;} else {return false;} break;
+			case 23 : if(qiziId===14) {return true;} else {return false;} break;
+			case 25 : if(qiziId===14) {return true;} else {return false;} break;
+			case 14 : return true; break;
+			default: return false; break;
+			};
+		}
+	};
+	var redXiang={
+		url:"imgs/redxiang.png",
+		run: function(qiziId,nextQiZiId) {
+		if(doit.judge('p'+(qiziId+nextQiZiId+22)/2)=='nothing' && Math.abs(qiziId%10-nextQiZiId%10)==2 && Math.abs(Math.floor(qiziId/10)-Math.floor(nextQiZiId/10))==2 && nextQiZiId < 60) {
+			return true;
+		}
+		else { return false;}
+		}
+		};
+	var redJiang={
+		url:"imgs/redjiang.png",
+		run: function(qiziId,nextQiZiId) {
+			if(nextQiZiId===03 ||nextQiZiId===04 ||nextQiZiId===05 ||nextQiZiId===13 ||nextQiZiId===14 ||nextQiZiId===15 ||nextQiZiId===23 ||nextQiZiId===24 ||nextQiZiId===25)
+			{if (Math.abs(nextQiZiId-qiziId)===1 || Math.abs(nextQiZiId-qiziId)===10) {return true;} return false; }
+			else {return false;}
+		}
+	};
+	var redMa={
+		url:"imgs/redma.png",
+		run: function(qiziId,nextQiZiId) {
+			if ( (qiziId+21===nextQiZiId || qiziId+19===nextQiZiId) && doit.judge('p'+(qiziId+10+11))==="nothing" ) {return true;}
+			else if ( (qiziId+12===nextQiZiId || qiziId-8===nextQiZiId) && doit.judge('p'+(qiziId+1+11))==="nothing" ) {return true;}
+			else if ( (qiziId+8===nextQiZiId || qiziId-12===nextQiZiId) && doit.judge('p'+(qiziId-1+11))==="nothing" ) {return true;}
+			else if ( (qiziId-21===nextQiZiId || qiziId-19===nextQiZiId) && doit.judge('p'+(qiziId-10+11))==="nothing" ) {return true;}
+			else {return false;}
+		}
+	};
+	var redJu={
+		url:"imgs/redju.png",
+		run: function (qiziId,nextQiZiId) {
+				var qiziIds=Math.floor(qiziId/10);
+				var qiziIdg=qiziId%10;
+				var nextQiZiIds=Math.floor(nextQiZiId/10);
+				var nextQiZiIdg=nextQiZiId%10;
+				console.log(qiziIds+'+'+qiziIdg+'+'+nextQiZiIds+'+'+nextQiZiIdg);
+			if (qiziIdg==nextQiZiIdg && qiziIds<nextQiZiIds) {
+				for (i=qiziIds+1;i<nextQiZiIds;i++)
+					{
+						if(doit.judge('p'+(10*i+qiziIdg+11))!="nothing") { return false;}
+					} 
+				return true;
+			}
+			else if (qiziIdg==nextQiZiIdg && qiziIds>nextQiZiIds) {
+				for (i=nextQiZiIds+1;i<qiziIds;i++)
+					{
+						if(doit.judge('p'+(10*i+qiziIdg+11))!="nothing") {return false;}
+					} 
+				return true;
+			}
+			else if (qiziIds==nextQiZiIds && qiziIdg>nextQiZiIdg) {
+				for (i=nextQiZiIdg+1;i<qiziIdg;i++)
+					{
+						if(doit.judge('p'+(qiziIds*10+i+11))!="nothing") {return false;}
+					} 
+				return true;
+			}
+			else if (qiziIds==nextQiZiIds && qiziIdg<nextQiZiIdg) {
+				for (i=qiziIdg+1;i<nextQiZiIdg;i++)
+					{
+						if(doit.judge('p'+(qiziIds*10+i+11))!="nothing") {return false;}
+					} 
+				return true;
+			}
+			else {return false;}
+		}
+	};
+	var redPao={
+		url:"imgs/redpao.png",
+		run: function(qiziId,nextQiZiId) {
+				var counters=0;
+				var qiziIds=Math.floor(qiziId/10);
+				var qiziIdg=qiziId%10;
+				var nextQiZiIds=Math.floor(nextQiZiId/10);
+				var nextQiZiIdg=nextQiZiId%10;
+			if (qiziIdg==nextQiZiIdg && qiziIds<nextQiZiIds) {
+				for (i=qiziIds+1;i<=nextQiZiIds;i++)
+					{
+						if(doit.judge('p'+(10*i+qiziIdg+11))!="nothing") { counters++;}
+					} 
+			}
+			else if (qiziIdg==nextQiZiIdg && qiziIds>nextQiZiIds) {
+				for (i=qiziIds-1;i>=nextQiZiIds;i--)
+					{
+						if(doit.judge('p'+(10*i+qiziIdg+11))!="nothing") {counters++;}
+					} 
+			}
+			else if (qiziIds==nextQiZiIds && qiziIdg>nextQiZiIdg) {
+				for (i=qiziIdg-1;i>=nextQiZiIdg;i--)
+					{
+						if(doit.judge('p'+(qiziIds*10+i+11))!="nothing") {counters++;}
+					} 
+			}
+			else if (qiziIds==nextQiZiIds && qiziIdg<nextQiZiIdg) {
+				for (i=qiziIdg+1;i<=nextQiZiIdg;i++)
+					{
+						if(doit.judge('p'+(qiziIds*10+i+11))!="nothing") {counters++;}
+					}
+			}
+			else {return false;}
+			if(counters==0 || (counters==2 && doit.judge('p'+(nextQiZiId+11))!="nothing"))
+			{return true;}
+			else {return false;}
+		}
+	};
+	var redBing={
+		url:"imgs/redbing.png",
+		run: function(qiziId,nextQiZiId) {
+			if (qiziId < 50) {
+				if(nextQiZiId-qiziId==10) {return true;}
+				else {return false;}
+			}
+			else {
+				if(Math.abs(nextQiZiId-qiziId)==1 || nextQiZiId-qiziId==10) {return true;}
+				else {return false;}
+			}
+		}
+	};
+//定义黑方棋子图片与行走方式
+	var blackShi={
+	url:"imgs/blackshi.png",
+	run:function(qiziId,nextQiZiId) {
+			switch (nextQiZiId) {
+			case qiziId : return false; break;
+			case 93 : if(qiziId===84) {return true;} else {return false;} break;
+			case 95 : if(qiziId===84) {return true;} else {return false;} break;
+			case 73 : if(qiziId===84) {return true;} else {return false;} break;
+			case 75 : if(qiziId===84) {return true;} else {return false;} break;
+			case 84 : return true; break;
+			default: return false; break;
+			};
+		}
+	};
+	var blackXiang={
+		url:"imgs/blackxiang.png",
+		run: function(qiziId,nextQiZiId) {
+		if(doit.judge('p'+(qiziId+nextQiZiId+22)/2)=='nothing' && Math.abs(qiziId%10-nextQiZiId%10)==2 && Math.abs(Math.floor(qiziId/10)-Math.floor(nextQiZiId/10))==2 && nextQiZiId > 48) {
+			return true;
+		}
+		else { return false;}
+		}
+	};
+	var blackJiang={
+		url:"imgs/blackjiang.png",
+		run: function(qiziId,nextQiZiId) {
+			if(nextQiZiId===93 ||nextQiZiId===94 ||nextQiZiId===95 ||nextQiZiId===83 ||nextQiZiId===84 ||nextQiZiId===85 ||nextQiZiId===73 ||nextQiZiId===74 ||nextQiZiId===75)
+			{if (Math.abs(nextQiZiId-qiziId)===1 || Math.abs(nextQiZiId-qiziId)===10) {return true;} return false; }
+			else {return false;}
+		}
+	};
+	var blackMa={
+		url:"imgs/blackma.png",
+		run: function(qiziId,nextQiZiId) {
+			if ( (qiziId+21===nextQiZiId || qiziId+19===nextQiZiId) && doit.judge('p'+(qiziId+10+11))==="nothing" ) {return true;}
+			else if ( (qiziId+12===nextQiZiId || qiziId-8===nextQiZiId) && doit.judge('p'+(qiziId+1+11))==="nothing" ) {return true;}
+			else if ( (qiziId+8===nextQiZiId || qiziId-12===nextQiZiId) && doit.judge('p'+(qiziId-1+11))==="nothing" ) {return true;}
+			else if ( (qiziId-21===nextQiZiId || qiziId-19===nextQiZiId) && doit.judge('p'+(qiziId-10+11))==="nothing" ) {return true;}
+			else {return false;}
+		}
+	};
+	var blackJu={
+		url:"imgs/blackju.png",
+		run: function (qiziId,nextQiZiId) {
+				var qiziIds=Math.floor(qiziId/10);
+				var qiziIdg=qiziId%10;
+				var nextQiZiIds=Math.floor(nextQiZiId/10);
+				var nextQiZiIdg=nextQiZiId%10;
+				console.log(qiziIds+'+'+qiziIdg+'+'+nextQiZiIds+'+'+nextQiZiIdg);
+			if (qiziIdg==nextQiZiIdg && qiziIds<nextQiZiIds) {
+				for (i=qiziIds+1;i<nextQiZiIds;i++)
+					{
+						if(doit.judge('p'+(10*i+qiziIdg+11))!="nothing") {return false;}
+					} 
+				return true;
+			}
+			else if (qiziIdg==nextQiZiIdg && qiziIds>nextQiZiIds) {
+				for (i=nextQiZiIds+1;i<qiziIds;i++)
+					{
+						if(doit.judge('p'+(10*i+qiziIdg+11))!="nothing") {return false;}
+					} 
+				return true;
+			}
+			else if (qiziIds==nextQiZiIds && qiziIdg>nextQiZiIdg) {
+				for (i=nextQiZiIdg+1;i<qiziIdg;i++)
+					{
+						if(doit.judge('p'+(qiziIds*10+i+11))!="nothing") {return false;}
+					} 
+				return true;
+			}
+			else if (qiziIds==nextQiZiIds && qiziIdg<nextQiZiIdg) {
+				for (i=qiziIdg+1;i<nextQiZiIdg;i++)
+					{
+						if(doit.judge('p'+(qiziIds*10+i+11))!="nothing") {return false;}
+					} 
+				return true;
+			}
+			else {return false;}
+		}
+	};
+	var blackPao={
+		url:"imgs/blackpao.png",
+		run: function(qiziId,nextQiZiId) {
+				var counters=0;
+				var qiziIds=Math.floor(qiziId/10);
+				var qiziIdg=qiziId%10;
+				var nextQiZiIds=Math.floor(nextQiZiId/10);
+				var nextQiZiIdg=nextQiZiId%10;
+			if (qiziIdg==nextQiZiIdg && qiziIds<nextQiZiIds) {
+				for (i=qiziIds+1;i<=nextQiZiIds;i++)
+					{
+						if(doit.judge('p'+(10*i+qiziIdg+11))!="nothing") { counters++;}
+					} 
+			}
+			else if (qiziIdg==nextQiZiIdg && qiziIds>nextQiZiIds) {
+				for (i=qiziIds-1;i>=nextQiZiIds;i--)
+					{
+						if(doit.judge('p'+(10*i+qiziIdg+11))!="nothing") {counters++;}
+					} 
+			}
+			else if (qiziIds==nextQiZiIds && qiziIdg>nextQiZiIdg) {
+				for (i=qiziIdg-1;i>=nextQiZiIdg;i--)
+					{
+						if(doit.judge('p'+(qiziIds*10+i+11))!="nothing") {counters++;}
+					} 
+			}
+			else if (qiziIds==nextQiZiIds && qiziIdg<nextQiZiIdg) {
+				for (i=qiziIdg+1;i<=nextQiZiIdg;i++)
+					{
+						if(doit.judge('p'+(qiziIds*10+i+11))!="nothing") {counters++;}
+					}
+			}
+			else {return false;}
+			console.log(counters);
+			if(counters==0 || (counters==2 && doit.judge('p'+(nextQiZiId+11))!="nothing"))
+			{return true;}
+			else {return false;}
+		}
+	};
+	var blackBing={
+		url:"imgs/blackbing.png",
+		run: function(qiziId,nextQiZiId) {
+			if (qiziId >= 50) {
+				if(nextQiZiId-qiziId==-10) {return true;}
+				else {return false;}
+			}
+			else {
+				if(Math.abs(nextQiZiId-qiziId)==1 || nextQiZiId-qiziId==-10) {return true;}
+				else {return false;}
+			}
+		}
+	};
+//初始化
+	init();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
